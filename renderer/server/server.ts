@@ -9,12 +9,11 @@ const app = next({
 });
 const handle = app.getRequestHandler();
 
-app.prepare()
-  .then(() => {
-    createServer((req, res) => {
-      handle(req, res, parse(req.url as string, true));
-    })
-    .listen(port, () => {
-      console.log(`> Ready on http://localhost:${port}`);
-    });
+app.prepare().then(() => {
+  createServer((req, res) => {
+    handle(req, res, parse(req.url as string, true));
+  }).listen(port, () => {
+    // tslint:disable:no-console
+    console.log(`> Ready on http://localhost:${port}`);
   });
+});
